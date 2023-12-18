@@ -58,8 +58,8 @@ public class OrderController {
  }
 
 
-    @PostMapping("/update")
-       public ApiResponse<OrderDto> updateOrder(@RequestBody Integer id,OrderDto orderDto) {
+    @PostMapping("/update/{id}")
+       public ApiResponse<OrderDto> updateOrder(@PathVariable Integer id,@RequestBody OrderDto orderDto) {
         this.orderServise.update(id,orderDto);
         ApiResponse<OrderDto> updateOrder = new ApiResponse<>();
         updateOrder.setSuccess(true);
@@ -100,13 +100,7 @@ public class OrderController {
        }
 
 
-    //
-    //    @PutMapping("/{orderId}")
-    //    @ResponseStatus(HttpStatus.NO_CONTENT)
-    //    public void updateOrderById(@PathVariable("orderId") Integer orderId, @RequestBody OrderDto orderDto) {
-    //        orderService.update(orderId, orderDto);
-    //    }
-    //
+
 
 
 

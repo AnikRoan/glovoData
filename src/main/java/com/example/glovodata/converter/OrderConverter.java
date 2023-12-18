@@ -16,7 +16,7 @@ import java.util.List;
 public class OrderConverter {
     public OrderDto fromModel(Order order) {
         return OrderDto.builder()
-                .id(order.getId())
+                 .id(order.getId())
                 .date(order.getDate())
                 .cost(order.getCost())
                 .products(productsFromModel(order.getProducts()))
@@ -35,7 +35,7 @@ public class OrderConverter {
         return Order.builder()
                 .date(dto.getDate())
                 .cost(dto.getCost())
-                .products(productsToModel(dto.getProducts()))
+              //  .products(productsToModel(dto.getProducts()))
                 .build();
     }
 

@@ -24,7 +24,7 @@ public class ProductServisImpl implements ProductServise {
 
     @Override
     public List<ProductDto> getProducts() {
-        Iterable<Product>products = productRepository.findAll();
+        Iterable<Product> products = productRepository.findAll();
         return productConverter.fromModel(products);
     }
 
@@ -38,7 +38,7 @@ public class ProductServisImpl implements ProductServise {
     @Override
     public void update(Integer id, ProductDto dto) {
         Product old = productRepository.findById(id).orElseThrow();
-        Product newProduct = productConverter.toModel(old,dto);
+        Product newProduct = productConverter.toModel(old, dto);
         productRepository.save(newProduct);
 
     }
