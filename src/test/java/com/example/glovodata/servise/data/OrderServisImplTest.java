@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,7 +39,7 @@ class OrderServisImplTest {
     private List<Order> orders;
 
     private OrderDto dto;
-    private List<OrderDto> dtos;
+
 
     @BeforeEach
     public void init() {
@@ -62,28 +63,32 @@ class OrderServisImplTest {
 
 
     @Test
-    void getAllOrders() {
+    void shouldReturnAllOrders() {
+        List<OrderDto> dtos = orders.stream()
+                .map(orderConverter::fromModel)
+                .collect(Collectors.toList());
+
         when(orderRepository.findAll()).thenReturn(orders);
         when(orderConverter.fromModel(orders)).thenReturn(dtos);
 
-        List<OrderDto>result = testInstance.getOrders();
+        List<OrderDto> result = testInstance.getOrders();
 
         verify(orderRepository).findAll();
         verify(orderConverter).fromModel(orders);
+
+        assertNotNull(result);
+
+        assertEquals(dtos.size(), result.size());
+
+        assertEquals(dtos, result);
 
 
     }
 
 
-    // @Override
-    //    public void save(OrderDto dto) {
-    //        Order order = orderConverter.toModel(dto);
-    //        orderRepository.save(order);
-    //
-    //    }
     @Test
-    void saveTest(){
-        //when(orderRepository.save(order)).thenReturn(order);
+    void shouldReturnSaveTest() {
+
         when(orderConverter.toModel(dto)).thenReturn(order);
 
         testInstance.save(dto);
@@ -92,37 +97,26 @@ class OrderServisImplTest {
         verify(orderRepository).save(order);
     }
 
-    //  @Override
-    //    public void update(Integer id, OrderDto dto) {
-    //        Order old = orderRepository.findById(id).orElseThrow();
-    //        Order newOrder = orderConverter.toModel(old,dto);
-    //        orderRepository.save(newOrder);
 
     @Test
-    void updateTest(){
-       // testInstance.getOrderById(ORDER_ID);
-        when(orderRepository.findById(ORDER_ID)).thenReturn(Optional.of(order));
-        when(orderConverter.toModel(order,dto)).thenReturn(new Order());
+    void shouldReturnUpdateTest() {
 
-        testInstance.update(ORDER_ID,dto);
+        when(orderRepository.findById(ORDER_ID)).thenReturn(Optional.of(order));
+        when(orderConverter.toModel(order, dto)).thenReturn(new Order());
+
+        testInstance.update(ORDER_ID, dto);
 
         verify(orderRepository).findById(ORDER_ID);
-        verify(orderConverter).toModel(order,dto);
+        verify(orderConverter).toModel(order, dto);
         verify(orderRepository).save(any());
 
     }
 
-//    @Override
-//    public void delete(Integer id) {
-//        orderRepository.deleteById(id);
-//
-//    }
 
     @Test
-    void deletTest(){
+    void shouldReturnDeletTest() {
 
         when(orderRepository.findById(ORDER_ID)).thenReturn(Optional.of(order));
-
 
 
         testInstance.getOrderById(ORDER_ID);
