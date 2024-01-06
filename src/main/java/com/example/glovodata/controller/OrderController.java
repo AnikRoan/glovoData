@@ -2,11 +2,13 @@ package com.example.glovodata.controller;
 
 import com.example.glovodata.dto.OrderDto;
 
+import com.example.glovodata.model.data.Order;
 import com.example.glovodata.respons.ApiResponse;
 import com.example.glovodata.servise.OrderServise;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,8 @@ public class OrderController {
         public ResponseEntity<String> handleException(Exception e) {
            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
        }
+
+
 
 
 @GetMapping()
@@ -42,20 +46,14 @@ public class OrderController {
 }
 
  @GetMapping("/{id}")
-    public ApiResponse<OrderDto> get(@PathVariable Integer id){
-        ApiResponse<OrderDto>orderDtoApiResponse= new ApiResponse<>();
-        OrderDto orderDto = orderServise.getOrderById(id);
-        if(orderDto!=null){
-            orderDtoApiResponse.setSuccess(true);
-            orderDtoApiResponse.setData(orderDto);
-
-        }else{
-            orderDtoApiResponse.setSuccess(false);
-            orderDtoApiResponse.setMessage("order not found");
-        }
-        return  orderDtoApiResponse;
-
+ public ResponseEntity<OrderDto> getOrderById(@PathVariable("id") Integer orderId) {
+     OrderDto order = orderServise.getOrderById(orderId);
+     if (order != null) {
+         return ResponseEntity.ok(order);
+     }
+     return (ResponseEntity<OrderDto>) ResponseEntity.notFound();
  }
+
 
 
     @PostMapping("/update/{id}")
@@ -66,36 +64,33 @@ public class OrderController {
         updateOrder.setMessage("order updated successfully");
         updateOrder.setData(orderDto);
 
-        return updateOrder;
 
-    }
+    return updateOrder;
 
+}
 
        @PostMapping("/create")
-       public ApiResponse<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
-        orderServise.save(orderDto);
-        ApiResponse<OrderDto>orderDtoApiResponse=new ApiResponse<>();
-        orderDtoApiResponse.setSuccess(true);
-        orderDtoApiResponse.setData(orderDto);
-        orderDtoApiResponse.setMessage("create order");
+       public void createOrder(@RequestBody OrderDto orderDto) {
+           orderServise.save(orderDto);
 
-        return orderDtoApiResponse;
+
+
+
 
        }
 
        @DeleteMapping("/{id}")
-       public ApiResponse<String> deleteOrder(@PathVariable Integer id) {
+       public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
         OrderDto orderDto = this.orderServise.getOrderById(id);
-        ApiResponse<String>response=new ApiResponse<>();
+
         if(orderDto!=null){
             this.orderServise.delete(id);
-            response.setSuccess(true);
-            response.setMessage("order deleted");
+            return ResponseEntity.ok("order delete");
         }else{
-            response.setSuccess(false);
-            response.setMessage("order not found");
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found"); // Возвращаем 404
         }
-        return response;
+
 
        }
 

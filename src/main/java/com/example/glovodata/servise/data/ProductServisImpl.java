@@ -1,11 +1,14 @@
 package com.example.glovodata.servise.data;
 
+
 import com.example.glovodata.converter.ProductConverter;
 import com.example.glovodata.dto.ProductDto;
+
 import com.example.glovodata.model.data.Product;
 import com.example.glovodata.repository.ProductRepository;
 import com.example.glovodata.servise.ProductServise;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductServisImpl implements ProductServise {
     private final ProductRepository productRepository;
+
     private final ProductConverter productConverter;
+
+
+
 
     @Override
     public ProductDto getProductById(Integer id) {
@@ -38,8 +45,8 @@ public class ProductServisImpl implements ProductServise {
     @Override
     public void update(Integer id, ProductDto dto) {
         Product old = productRepository.findById(id).orElseThrow();
-        Product newProduct = productConverter.toModel(old, dto);
-        productRepository.save(newProduct);
+         productConverter.toModel(old,dto);
+        productRepository.save(old);
 
     }
 

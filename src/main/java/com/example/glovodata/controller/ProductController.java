@@ -1,5 +1,6 @@
 package com.example.glovodata.controller;
 
+import com.example.glovodata.dto.OrderDto;
 import com.example.glovodata.dto.ProductDto;
 import com.example.glovodata.respons.ApiResponse;
 import com.example.glovodata.servise.ProductServise;
@@ -39,17 +40,12 @@ public class ProductController {
 
 
     @GetMapping("/{id}")
-    public ApiResponse<ProductDto> get(@PathVariable Integer id) {
-        ApiResponse<ProductDto> response = new ApiResponse<>();
+    public ResponseEntity<ProductDto> get(@PathVariable("id") Integer id) {
         ProductDto productDto = productServise.getProductById(id);
         if (productDto != null) {
-            response.setSuccess(true);
-            response.setData(productDto);
-        } else {
-            response.setSuccess(false);
-            response.setMessage("product not found");
+            return ResponseEntity.ok(productDto);
         }
-        return response;
+        return (ResponseEntity<ProductDto>) ResponseEntity.notFound();
     }
 
     @PostMapping("/update/{id}")
@@ -65,29 +61,23 @@ public class ProductController {
 
 
     @PostMapping("/create")
-    public ApiResponse<ProductDto> createProduct(@RequestBody ProductDto dto) {
+    public void createProduct(@RequestBody ProductDto dto) {
         productServise.save(dto);
-        ApiResponse<ProductDto> response = new ApiResponse<>();
-        response.setSuccess(true);
-        response.setData(dto);
-        response.setMessage("create product");
 
-        return response;
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<String> deleteProduct(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer id) {
         ProductDto productDto = this.productServise.getProductById(id);
-        ApiResponse<String> response = new ApiResponse<>();
+
         if (productDto != null) {
             this.productServise.delete(id);
-            response.setSuccess(true);
-            response.setMessage("product deleted");
+           return ResponseEntity.ok("product delete");
         } else {
-            response.setSuccess(false);
-            response.setMessage("product notFound");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+
         }
-        return response;
+
     }
 
 }

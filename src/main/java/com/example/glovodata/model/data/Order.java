@@ -1,24 +1,27 @@
 package com.example.glovodata.model.data;
 
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Table("orders")
+@Entity
+@Table(name = "orders")
+
 public class Order {
 
     @Id
+    @GeneratedValue
     private Integer id;
     private LocalDate date;
     private Double cost;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Product> products;
 
 
