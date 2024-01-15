@@ -1,9 +1,6 @@
 package com.example.glovodata.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,13 +9,13 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserDto {
     private Long id;
     @NotEmpty
     private String firstName;
 
-    @NotEmpty
-    private String lastName;
+
 
     @NotEmpty(message = "Email should not be empty")
     @Email
