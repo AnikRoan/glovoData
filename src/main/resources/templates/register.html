@@ -1,0 +1,281 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--&gt;-->
+<!--&lt;!&ndash;jsdelivr&ndash;&gt;-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Registration and Login System</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"-->
+<!--          rel="stylesheet"-->
+<!--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"-->
+<!--          crossorigin="anonymous">-->
+<!--</head>-->
+<!--<body>-->
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" th:href="@{/index}">Registration and Login System</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" th:href="@{/login}">Login</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+<!--<br /><br /><br />-->
+<!--<div class="container">-->
+<!--    <div class="row col-md-8 offset-md-2">-->
+<!--        <div class="card">-->
+<!--            <div class="card-header">-->
+<!--                <h2 class="text-center">Registration</h2>-->
+<!--            </div>-->
+<!--            <div th:if="${param.success}">-->
+<!--                <div class="alert alert-info">-->
+<!--                    You have successfully registered our app!-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--                <form-->
+<!--                        method="post"-->
+<!--                        role="form"-->
+<!--                        th:action="@{/register/save}"-->
+<!--                        th:object="${user}"-->
+<!--                >-->
+<!--                    <div class="form-group mb-3">-->
+<!--                        <label class="form-label">First Name</label>-->
+<!--                        <input-->
+<!--                                class="form-control"-->
+<!--                                id="firstName"-->
+<!--                                name="firstName"-->
+<!--                                placeholder="Enter first name"-->
+<!--                                th:field="*{firstName}"-->
+<!--                                type="text"-->
+<!--                        />-->
+<!--                        <p th:errors = "*{firstName}" class="text-danger"-->
+<!--                           th:if="${#fields.hasErrors('firstName')}"></p>-->
+<!--                    </div>-->
+
+
+
+<!--                    <div class="form-group mb-3">-->
+<!--                        <label class="form-label">Email</label>-->
+<!--                        <input-->
+<!--                                class="form-control"-->
+<!--                                id="email"-->
+<!--                                name="email"-->
+<!--                                placeholder="Enter email address"-->
+<!--                                th:field="*{email}"-->
+<!--                                type="email"-->
+<!--                        />-->
+<!--                        <p th:errors = "*{email}" class="text-danger"-->
+<!--                           th:if="${#fields.hasErrors('email')}"></p>-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group mb-3">-->
+<!--                        <label class="form-label">Password</label>-->
+<!--                        <input-->
+<!--                                class="form-control"-->
+<!--                                id="password"-->
+<!--                                name="password"-->
+<!--                                placeholder="Enter password"-->
+<!--                                th:field="*{password}"-->
+<!--                                type="password"-->
+<!--                        />-->
+<!--                        <p th:errors = "*{password}" class="text-danger"-->
+<!--                           th:if="${#fields.hasErrors('password')}"></p>-->
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                        <button class="btn btn-primary" type="submit">Register</button>-->
+<!--                        <span>Already registered? <a th:href="@{/login}">Login here</a></span>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Create Employee</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: 'Arial', sans-serif;-->
+<!--      background-color: #333;-->
+<!--      color: #fff;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      align-items: center;-->
+<!--      justify-content: center;-->
+<!--      height: 100vh;-->
+<!--    }-->
+
+<!--    h1 {-->
+<!--      color: #ff8c00;-->
+<!--    }-->
+
+<!--    form {-->
+<!--      width: 60%;-->
+<!--      margin-top: 20px;-->
+<!--      display: flex;-->
+<!--      flex-direction: column;-->
+<!--      align-items: center;-->
+<!--    }-->
+
+<!--    label {-->
+<!--      display: block;-->
+<!--      margin-bottom: 8px;-->
+<!--    }-->
+
+<!--    input, button {-->
+<!--      padding: 10px;-->
+<!--      margin-bottom: 12px;-->
+<!--    }-->
+
+<!--    button {-->
+<!--      background-color: #ff8c00;-->
+<!--      color: #333;-->
+<!--      border: none;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+
+<!--    button:hover {-->
+<!--      background-color: #ffa54f;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h1>Create Employee</h1>-->
+
+<!--<form id="employee-form">-->
+<!--  <label for="name">Name:</label>-->
+<!--  <input type="text" id="name" name="name" required>-->
+
+<!--  <label for="age">Age:</label>-->
+<!--  <input type="text" id="age" name="age" required>-->
+
+<!--  <label for="email">Email:</label>-->
+<!--  <input type="text" id="email" name="email" required>-->
+
+
+
+<!--  <button type="button" onclick="submitForm()">Submit</button>-->
+<!--</form>-->
+
+<!--<script>-->
+<!--  function submitForm() {-->
+<!--    const form = document.getElementById('employee-form');-->
+<!--    const formData = new FormData(form);-->
+
+<!--    fetch('http://localhost:8080/emploee/add', {-->
+<!--      method: 'POST',-->
+<!--      headers: {-->
+<!--        'Content-Type': 'application/json',-->
+<!--      },-->
+<!--      body: JSON.stringify(Object.fromEntries(formData)),-->
+<!--    })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--              console.log('Success:', data);-->
+<!--              // You can handle success actions here, such as showing a success message.-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--              console.error('Error:', error);-->
+<!--              // You can handle error actions here, such as showing an error message.-->
+<!--            });-->
+<!--  }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Employee</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #ff8c00;
+        }
+
+        form {
+            width: 60%;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        button {
+            background-color: #ff8c00;
+            color: #333;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ffa54f;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Create User</h1>
+
+<form action="http://localhost:8080/register/save" method="post" enctype="multipart/form-data" >
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="text" id="password" name="password" required>
+
+    <button type="submit">Submit</button>
+    <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Register</button>
+                                <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                            </div>
+</form>
+
+</body>
+</html>

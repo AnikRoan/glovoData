@@ -1,0 +1,68 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Welcome to Spring MVC</title>-->
+
+<!--    <style>-->
+<!--        @keyframes textAnimation {-->
+<!--            0% {-->
+<!--                font-size: 16px;-->
+<!--            }-->
+<!--            50% {-->
+<!--                font-size: 24px;-->
+<!--            }-->
+<!--            100% {-->
+<!--                font-size: 16px;-->
+<!--            }-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            animation: textAnimation 4s infinite; /* Adjust the duration as needed */-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Welcome to Spring MVC</h1>-->
+<!--<p>This is the default landing page for your Spring MVC application.</p>-->
+<!--<p>Feel free to customize this page according to your needs.</p>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration and Login System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/index}">Registration and Login System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br /><br />
+<div class="container">
+    <div class="row">
+        <h1 class="text-center"> Registration and Login System </h1>
+    </div>
+</div>
+</body>
+</html>
