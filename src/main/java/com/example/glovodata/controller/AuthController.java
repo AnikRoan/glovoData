@@ -4,6 +4,7 @@ import com.example.glovodata.dto.UserDto;
 import com.example.glovodata.model.entity.User;
 import com.example.glovodata.servise.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class AuthController {
 
     private final UserService userService;
@@ -21,7 +23,7 @@ public class AuthController {
     public AuthController(UserService userService) {
         this.userService = userService;
     }
-    // handler method to handle home page request
+
     @GetMapping("/index")
     public String home(){
         return "index";
@@ -64,6 +66,8 @@ public class AuthController {
         User user = userService.findUserByEmail(userDto.getEmail());
         if(user==null){
             userService.saveUser(userDto);
+
+            log.info("registration successful");
             return "/users";
         }else {
             return "redirect:/register?success";

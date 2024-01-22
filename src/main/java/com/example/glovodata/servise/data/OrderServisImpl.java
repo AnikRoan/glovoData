@@ -12,11 +12,12 @@ import com.example.glovodata.servise.OrderServise;
 import lombok.RequiredArgsConstructor;
 
 
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class OrderServisImpl implements OrderServise {
     private final OrderRepository orderRepository;
@@ -41,6 +42,7 @@ public class OrderServisImpl implements OrderServise {
     public void save(OrderDto dto) {
         Order order = orderConverter.toModel(dto);
         orderRepository.save(order);
+        log.debug("order saved"+ order);
 
     }
 
@@ -49,6 +51,7 @@ public class OrderServisImpl implements OrderServise {
         Order old = orderRepository.findById(id).orElseThrow();
         Order newOrder = orderConverter.toModel(old,dto);
         orderRepository.save(newOrder);
+        log.debug("order update "+newOrder);
 
 
     }
@@ -56,6 +59,7 @@ public class OrderServisImpl implements OrderServise {
     @Override
     public void delete(Integer id) {
         orderRepository.deleteById(id);
+        log.debug("order delete");
 
     }
 }
